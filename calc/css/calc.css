@@ -1,0 +1,7 @@
+.logic {
+  list-style: none;
+}
+
+.logic label input {
+  display: none;
+}
