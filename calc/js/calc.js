@@ -1,10 +1,10 @@
-$(function() {
-  var radios = $("input[name=logic]");
-
-  radios.on("change", function(e) {
-    radios.closest("label").removeClass("selected");
-    $(e.target).closest("label").addClass("selected");
+$(function(){
+  $('#add').change(function(){
+    if ($(this).is(':checked')) {
+      $('#ans_add').prop('disabled', false);
+    }
+    else {
+      $('#ans_add').prop('disabled', true);
+    }
   });
-
-  radios.filter(":checked").trigger("change");
 });

@@ -1,29 +1,81 @@
+<?php
+  // Initialize
+  $ans_add = null;
+  $ans_sub = null;
+  $ans_multi = null;
+  $ans_div = null;
+
+  $value_a = isset($_POST['value_a']) ? $_POST['value_a'] : null;
+  $value_b = isset($_POST['value_b']) ? $_POST['value_b'] : null;
+  
+  $calc_add = isset($_POST['add']) ? 'checked' : null;
+  $calc_sub = isset($_POST['sub']) ? 'checked' : null;
+  $calc_multi = isset($_POST['multi']) ? 'checked' : null;
+  $calc_div = isset($_POST['div']) ? 'checked' : null;
+
+  // if (is_null($calc_add)) {
+  //   $err_msg = "オプションを選択してください。";
+  // }
+
+  if ($calc_add) {
+    $ans_add = $value_a + $value_b;
+  }
+  if ($calc_sub) {
+    $ans_sub = $value_a - $value_b;
+  }
+  if ($calc_multi) {
+    $ans_multi = $value_a * $value_b;
+  }
+  if ($calc_div) {
+    $ans_div = $value_a / $value_b;
+  }
+?>
+
 <html>
   <head>
     <title>イケてる電卓</title>
     <link rel="stylesheet" href="./css/bootstrap.css" />
     <link rel="stylesheet" href="./css/calc.css" />
-    <script type="text/javascript" src="./js/bootstrap.js"></script>
     <script type="text/javascript" src="./js/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="./js/bootstrap.js"></script>
     <script type="text/javascript" src="./js/calc.js"></script>
   </head>
   <body>
-    <div>
-      <form method="POST" action="calc.php">
-        <input type="text" name="value_a" id="value_a" />
-        <ul class="logic">
-          <li><label><input type="radio" name="logic" id="add" value="add" />+</label></li>
-          <li><label><input type="radio" name="logic" id="sub" value="sub"/>-</label></li>
-          <li><label><input type="radio" name="logic" id="multi" value="multi"/>*</label></li>
-          <li><label><input type="radio" name="logic" id="div" value="div"/>/</label></li>
-        </ul>
-        <input type="text" name="value_b" id="value_b" />
-        <submit text="計算"/>
+    <div class="container">
+      <form method="POST" action="<?php print($_SERVER['PHP_SELF']) ?>">
+        <div class="form-group">
+          <label for="value_a">値1：</label>
+          <input type="text" name="value_a" id="value_a" class="form-control" value="<?php print $value_a; ?>"/>
+        </div>
+        <div class="form-group">
+          <label for="value_b">値2：</label>
+          <input type="text" name="value_b" id="value_b" class="form-control" value="<?php print $value_b; ?>"/>
+        </div>
+        <div class="form-group">
+          <label>オプション</label>
+          <ul class="logic">
+            <li>
+              <input type="checkbox" name="add" id="add" value="add" class="toggleButton" <?php print $calc_add; ?>/><label for="add">＋</label>
+              <input type="text" id="ans_add" name="ans_add" class="form-control" value="<?php print $ans_add; ?>" disabled readonly/>
+            </li>
+            <li>
+              <input type="checkbox" name="sub" id="sub" value="sub" class="toggleButton" <?php print $calc_sub; ?>/><label for="sub">－</label>
+              <input type="text" id="ans_sub" name="ans_sub" class="form-control" value="<?php print $ans_sub; ?>" disabled readonly/>
+            </li>
+            <li>
+              <input type="checkbox" name="multi" id="multi" value="multi" class="toggleButton" <?php print $calc_multi; ?>/><label for="multi">×</label>
+              <input type="text" id="ans_multi" name="ans_multi" class="form-control" value="<?php print $ans_multi ?>" disabled readonly/>
+            </li>
+            <li>
+              <input type="checkbox" name="div" id="div" value="div" class="toggleButton" <?php print $calc_div; ?>/><label for="div">÷</label>
+              <input type="text" id="ans_div" name="ans_div" class="form-control" value="<?php print $ans_div; ?>" disabled readonly/>
+            </li>
+          </ul>
+        </div>
+        <div class="form-group">
+          <input type="submit" value="計算" class="btn btn-primary"/>
+        </div>
       </form>
     </div>
   </body>
 </html>
-
-<?php
-  
-?>
